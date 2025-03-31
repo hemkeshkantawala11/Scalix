@@ -20,7 +20,7 @@ class CacheLoadTest(HttpUser):
         payload = {"Key": key, "Value": value}
         headers = {"Content-Type": "application/json"}
         
-        response = self.client.post("/set", data=json.dumps(payload), headers=headers)
+        response = self.client.post("/put", data=json.dumps(payload), headers=headers)
         if response.status_code == 200:
             self.keys.append(key)  # Store successful keys
     
