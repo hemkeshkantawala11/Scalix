@@ -22,21 +22,36 @@ func (h *CacheHandler) SetHandler(c *gin.Context) {
 		return
 	}
 	h.cache.Set(req.Key, req.Value)
-	c.JSON(http.StatusOK, gin.H{"message": "Key set successfully"})
+	c.JSON(http.StatusOK, gin.H{
+		"status": "OK",
+		"message": "Key inserted/updated successfully."})
 }
 
 func (h *CacheHandler) GetHandler(c *gin.Context) {
 	key := c.Query("key")
 	if key == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Key is required"})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": "ERROR",
+			"message": "Key not found."})
+		return
+	}
+	if(len(key) > 256) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": "ERROR",
+			"message": "Key length exceeds 256 characters."})
 		return
 	}
 	value, exists := h.cache.Get(key)
 	if !exists {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Key not found"})
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": "ERROR",
+			"message": "Key not found."})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"key": key, "value": value})
+	c.JSON(http.StatusOK, gin.H{
+		"status": "OK",
+		"key": key,
+		"value": value})
 }
 
 func (h *CacheHandler) AddNodeHandler(c *gin.Context) {
