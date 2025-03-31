@@ -38,3 +38,23 @@ func (h *CacheHandler) GetHandler(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"key": key, "value": value})
 }
+
+func (h *CacheHandler) AddNodeHandler(c *gin.Context) {
+	var req models.NodeRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	h.cache.AddNode(req.Node)
+	c.JSON(http.StatusOK, gin.H{"message": "Node added successfully"})
+}
+
+func (h *CacheHandler) RemoveNodeHandler(c *gin.Context) {
+	var req models.NodeRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	h.cache.RemoveNode(req.Node)
+	c.JSON(http.StatusOK, gin.H{"message": "Node removed successfully"})
+}

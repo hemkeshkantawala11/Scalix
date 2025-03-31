@@ -13,12 +13,16 @@ import (
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	keyValueCache := cache.New()
+
+	nodes := []string{"Node1", "Node2", "Node3"} // Initial nodes
+	keyValueCache := cache.New(nodes)
 	cacheHandler := handlers.NewCacheHandler(keyValueCache)
 	router := gin.Default()
 
 	router.POST("/set", cacheHandler.SetHandler)
 	router.GET("/get", cacheHandler.GetHandler)
+	router.POST("/add_node", cacheHandler.AddNodeHandler)
+	router.POST("/remove_node", cacheHandler.RemoveNodeHandler)
 
 	srv := &http.Server{
 		Addr:           ":7171",
@@ -26,6 +30,7 @@ func main() {
 		ReadTimeout:    5 * time.Second,
 		WriteTimeout:   5 * time.Second,
 		IdleTimeout:    30 * time.Second,
+		MaxHeaderBytes: 1 << 20,
 	}
 
 	log.Println("Starting server on :7171")
