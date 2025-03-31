@@ -13,37 +13,19 @@ import (
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	keyValueCache := cache.New(cache.WithCapacity(1000))
+	keyValueCache := cache.New()
 	cacheHandler := handlers.NewCacheHandler(keyValueCache)
 	router := gin.Default()
 
-	// Middleware to enable Keep-Alive
-	router.Use(gin.Recovery())
+	router.POST("/set", cacheHandler.SetHandler)
+	router.GET("/get", cacheHandler.GetHandler)
 
-	v1 := router.Group("/api/v1")
-	{
-		v1.POST("/cache", cacheHandler.SetHandler)
-		v1.GET("/cache", cacheHandler.GetHandler)
-	}
-
-	// Background task to clean expired cache items
-	go func() {
-		ticker := time.NewTicker(1 * time.Minute)
-		defer ticker.Stop()
-		for range ticker.C {
-			keyValueCache.CleanExpired()
-			log.Println("Expired cache items cleaned")
-		}
-	}()
-
-	// Custom HTTP server with Keep-Alive settings
 	srv := &http.Server{
-		Addr:              ":7171",
-		Handler:           router,
-		ReadTimeout:       10 * time.Second,
-		WriteTimeout:      10 * time.Second,
-		IdleTimeout:       60 * time.Second, // Allows Keep-Alive for 60 sec
-		MaxHeaderBytes:    1 << 20,          // 1MB header limit
+		Addr:           ":7171",
+		Handler:        router,
+		ReadTimeout:    5 * time.Second,
+		WriteTimeout:   5 * time.Second,
+		IdleTimeout:    30 * time.Second,
 	}
 
 	log.Println("Starting server on :7171")
