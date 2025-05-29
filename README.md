@@ -1,4 +1,4 @@
-# Key-Value Cache System 🚀
+# Key-Value Cache System (Scalix) 🚀
 
 Hey there! Welcome to my distributed cache system project. This is a Redis-inspired, high-performance in-memory cache built with Go. If you've ever wondered how distributed caching works or wanted to see a practical implementation of consistent hashing, you're in the right place!
 
