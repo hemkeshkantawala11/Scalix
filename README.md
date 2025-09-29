@@ -1,14 +1,14 @@
-# Key-Value Cache System (Scalix) 🚀
+# Key-Value Cache System (Scalix)
 
 Hey there! Welcome to my distributed cache system project. This is a Redis-inspired, high-performance in-memory cache built with Go. If you've ever wondered how distributed caching works or wanted to see a practical implementation of consistent hashing, you're in the right place!
 
-## What Is This Project? 🤔
+## What Is This Project?
 
 In simple terms, this is a distributed memory cache that spreads data across multiple nodes. Instead of storing everything on one server (which can become a bottleneck), this system cleverly distributes your data using something called "consistent hashing" (more on that below).
 
 Think of it like having multiple warehouses instead of one giant warehouse - it's more efficient and less prone to failure.
 
-## Key Features 💎
+## Key Features
 
 - **Truly Distributed**: Data is spread across multiple nodes intelligently
 - **Blazing Fast**: Written in Go for maximum performance 
@@ -18,7 +18,7 @@ Think of it like having multiple warehouses instead of one giant warehouse - it'
 - **Flexible**: Add or remove nodes whenever you want without disruption
 - **Docker Ready**: Deploy anywhere with optimized container setup
 
-## How It Works 🔍
+## How It Works
 
 ### The Architecture
 
@@ -40,7 +40,7 @@ This project is built with three main components:
    - Simple endpoints for getting, setting, and managing nodes
    - Optimized for high throughput and minimal latency
 
-## Technical Deep Dive 🧠
+## Technical Deep Dive
 
 ### Smart Optimizations
 
@@ -62,7 +62,7 @@ This project is built with three main components:
    - You can set the maximum cache size to match your hardware
    - Prevents unbounded memory growth that could crash your application
 
-## Performance Highlights 📊
+## Performance Highlights
 
 I've included a Locust script (`locust.py`) for load testing that shows:
 
@@ -70,7 +70,7 @@ I've included a Locust script (`locust.py`) for load testing that shows:
 - Response times typically under 5ms
 - Read operations (GET) are prioritized 3:2 over writes (PUT)
 
-## Let's Get Started! 🏁
+## Let's Get Started!
 
 ### Prerequisites
 
@@ -80,7 +80,7 @@ Before you begin, make sure you have:
 - OR Go 1.18+ installed (for local development)
 - Basic familiarity with terminal/command line
 
-### Option 1: Running with Docker (Recommended) 🐳
+### Option 1: Running with Docker (Recommended)
 
 Docker makes it super easy to run this project without worrying about dependencies. Let me walk you through it:
 
@@ -167,7 +167,7 @@ curl http://127.0.0.1:7171/get?key=test
 
 You should get a response indicating the key wasn't found (which is expected since we haven't added any keys yet).
 
-## Using the Distributed Cache 💻
+## Using the Distributed Cache 
 
 Now that your server is running, let's try some operations:
 
@@ -208,7 +208,7 @@ You should receive:
 
 ```
 
-## Load Testing Your Cache ⚡
+## Load Testing Your Cache
 
 Want to see how your cache performs under load? I've included a Locust script for stress testing:
 
@@ -236,7 +236,7 @@ Open your browser and go to http://localhost:8089
 
 You'll see real-time graphs and statistics showing how your cache is performing!
 
-## Understanding the Code Structure 📁
+## Understanding the Code Structure 
 
 If you're curious about the code organization:
 
@@ -248,7 +248,7 @@ If you're curious about the code organization:
 - `locust.py` - Load testing script
 - `Dockerfile` - Container definition for Docker
 
-## Best Practices I've Implemented 🌟
+## Best Practices I've Implemented
 
 Throughout this project, I've followed several best practices:
 
@@ -277,7 +277,7 @@ Throughout this project, I've followed several best practices:
    - Both read and write operations are tested
    - Tests simulate real-world usage patterns
 
-## Ideas for Future Enhancements 💡
+## Ideas for Future Enhancements
 
 Here are some ways this project could be extended:
 
@@ -288,7 +288,7 @@ Here are some ways this project could be extended:
 - **Metrics Dashboard**: Add Prometheus and Grafana for monitoring
 - **Auto-scaling**: Dynamically add/remove nodes based on load
 
-## Contact and Support 📞
+## Contact and Support
 
 Found a bug or have a question? Please open an issue on GitHub or reach out directly.
 
